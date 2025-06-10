@@ -27,6 +27,7 @@ public class RocketService {
             if (null!=mission){
                 rocket.setStatus(status);
                 missionService.changeMissionStatus(mission.getName(), StatusMissionEnum.PENDING);
+                return;
             }
         }
         rocket.setStatus(status);
