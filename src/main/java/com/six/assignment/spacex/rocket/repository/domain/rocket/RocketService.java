@@ -1,8 +1,7 @@
-package com.six.assignment.spacex.rocket.repository.service;
+package com.six.assignment.spacex.rocket.repository.domain.rocket;
 
-import com.six.assignment.spacex.rocket.repository.domain.Rocket;
-import com.six.assignment.spacex.rocket.repository.domain.StatusRocketEnum;
-import lombok.Getter;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnum;
 
 import java.util.HashMap;
 import java.util.Map;

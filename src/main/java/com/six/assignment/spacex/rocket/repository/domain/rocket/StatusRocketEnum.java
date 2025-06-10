@@ -1,4 +1,4 @@
-package com.six.assignment.spacex.rocket.repository.domain;
+package com.six.assignment.spacex.rocket.repository.domain.rocket;
 
  public enum StatusRocketEnum {
      ON_GROUND,

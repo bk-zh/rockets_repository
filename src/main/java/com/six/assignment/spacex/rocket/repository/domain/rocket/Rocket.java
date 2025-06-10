@@ -1,5 +1,6 @@
-package com.six.assignment.spacex.rocket.repository.domain;
+package com.six.assignment.spacex.rocket.repository.domain.rocket;
 
+import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

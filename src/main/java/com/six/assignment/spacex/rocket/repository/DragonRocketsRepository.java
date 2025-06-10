@@ -1,9 +1,9 @@
 package com.six.assignment.spacex.rocket.repository;
 
-import com.six.assignment.spacex.rocket.repository.domain.Mission;
-import com.six.assignment.spacex.rocket.repository.service.AssignmentService;
-import com.six.assignment.spacex.rocket.repository.service.MissionService;
-import com.six.assignment.spacex.rocket.repository.service.RocketService;
+import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
+import com.six.assignment.spacex.rocket.repository.domain.assignment.AssignmentService;
+import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 
 import java.util.List;
 

@@ -1,8 +1,11 @@
-package com.six.assignment.spacex.rocket.repository.service;
+package com.six.assignment.spacex.rocket.repository.domain.assignment;
 
-import com.six.assignment.spacex.rocket.repository.domain.Mission;
-import com.six.assignment.spacex.rocket.repository.domain.Rocket;
-import com.six.assignment.spacex.rocket.repository.domain.StatusMissionEnum;
+import com.six.assignment.spacex.rocket.repository.domain.assignment.AssignmentService;
+import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
+import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
+import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
