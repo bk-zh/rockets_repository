@@ -34,8 +34,8 @@ class MissionServiceTest {
 
         Mission mission = missionService.getMission(missionName);
         assertEquals(mission.getMissionStatus().getStatus(), StatusMissionEnum.SCHEDULED);
-        missionService.changeMissionStatus(mission.getName(), StatusMissionEnum.IN_PROGRESS);
-        assertEquals(mission.getMissionStatus().getStatus(), StatusMissionEnum.IN_PROGRESS);
+        missionService.changeMissionStatus(mission.getName(), StatusMissionEnum.ENDED);
+        assertEquals(mission.getMissionStatus().getStatus(), StatusMissionEnum.ENDED);
 
     }
 

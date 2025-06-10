@@ -3,14 +3,29 @@ package com.six.assignment.spacex.rocket.repository.domain.mission.state;
 import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
 import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
 
+import java.util.List;
+
 public class ScheduledState implements MissionState {
+    List<StatusMissionEnum> allowedTransitionsFrom = List.of(
+            StatusMissionEnum.SCHEDULED,
+            StatusMissionEnum.PENDING
+    );
+
     @Override
     public void update(Mission mission) {
-     throw new RuntimeException("Not implemented yet");
+        throw new RuntimeException("Not implemented yet");
     }
 
     @Override
     public StatusMissionEnum getStatus() {
         return StatusMissionEnum.SCHEDULED;
+    }
+
+    @Override
+    public boolean canTransitionFrom(StatusMissionEnum target) {
+        if (!allowedTransitionsFrom.contains(target)) {
+            throw new IllegalStateException("Mission status change not allowed from:" + target);
+        }
+        return true;
     }
 }

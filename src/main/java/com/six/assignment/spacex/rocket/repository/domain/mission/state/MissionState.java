@@ -6,4 +6,5 @@ import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionE
 public interface MissionState {
     void update(Mission mission);
     StatusMissionEnum getStatus();
+    boolean canTransitionFrom(StatusMissionEnum target);
 }

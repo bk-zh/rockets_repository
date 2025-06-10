@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class  Mission {
+public class Mission {
     private final String name;
     @Setter
     private MissionState missionStatus = new ScheduledState();
@@ -21,4 +21,9 @@ public class  Mission {
     public void assignRocket(Rocket rocket) {
         rockets.add(rocket);
     }
+
+    public void clearRockets() {
+        rockets.clear();
+    }
+
 }

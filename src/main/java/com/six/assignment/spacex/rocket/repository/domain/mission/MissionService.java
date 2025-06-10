@@ -19,9 +19,7 @@ public class MissionService {
     public void changeMissionStatus(String missionName, StatusMissionEnum status) {
         Mission mission = getMission(missionName);
         MissionState state = MissionStateFactory.create(status);
-//        state.update(mission);
-        mission.setMissionStatus(state);
-
+        state.update(mission);
     }
 
     public Mission getMission(String name) {

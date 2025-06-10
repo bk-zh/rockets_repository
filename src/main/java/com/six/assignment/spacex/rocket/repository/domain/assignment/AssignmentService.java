@@ -17,13 +17,24 @@ public class AssignmentService {
 
     public void assignRocketToMission(String rocketName, String missionName) {
         Rocket rocket = rocketService.getRocket(rocketName);
+        if (null == rocket) {
+            throw new IllegalArgumentException("Assignment failure, cannot find rocket: " + rocketName);
+        }
+
         Mission mission = missionService.getMission(missionName);
-        if (rocket.getMission() != null)
+        if (null == rocket) {
+            throw new IllegalArgumentException("Assignment failure, cannot find mission: " + missionName);
+        }
+
+        if (!mission.getRockets()
+                .stream()
+                .filter(r -> r.getName().equals(rocketName))
+                .findFirst().isEmpty())
             throw new IllegalStateException("Rocket has already been assigned to a mission");
+
         if (mission.getMissionStatus() instanceof EndedState)
             throw new IllegalStateException("Cannot assign to mission with status ended");
 
-        rocket.setMission(mission);
         mission.assignRocket(rocket);
     }
 

@@ -9,6 +9,8 @@ import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AssignmentServiceTest {
@@ -37,10 +39,15 @@ class AssignmentServiceTest {
         missionService.addNewMission(missionName);
         //when
         assignmentService.assignRocketToMission(rocketName,missionName);
-        Rocket rocket = rocketService.getRocket(rocketName);
-        assertNotNull(rocket);
-        assertNotNull(rocket.getMission());
-        assertEquals(rocket.getMission().getName(), missionName);
+        //Then
+        Mission mission = missionService.getMission(missionName);
+        assertNotNull(mission);
+        assertNotNull(mission.getRockets());
+        assertTrue(mission.getRockets().size()>0);
+        Optional<Rocket> rocketOptional = mission.getRockets().stream()
+                .filter(rocket -> rocket.getName().equals(rocketName))
+                .findFirst();
+        assertNotNull(rocketOptional.get());
 
     }
 
@@ -65,15 +72,13 @@ class AssignmentServiceTest {
     void shouldThrowWhenRocketAlreadyAssigned() {
         String rocketName = "rocket1";
         String missionName1 = "mission1";
-        String missionName2 = "mission2";
         rocketService.addNewRocket(rocketName);
         missionService.addNewMission(missionName1);
-        missionService.addNewMission(missionName2);
 
         assignmentService.assignRocketToMission(rocketName, missionName1);
 
         IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
-                assignmentService.assignRocketToMission(rocketName, missionName2));
+                assignmentService.assignRocketToMission(rocketName, missionName1));
 
         assertEquals("Rocket has already been assigned to a mission", ex.getMessage());
     }
