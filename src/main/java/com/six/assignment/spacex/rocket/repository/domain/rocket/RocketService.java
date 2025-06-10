@@ -16,6 +16,7 @@ public class RocketService {
     public void changeRocketStatus(String rocketName, StatusRocketEnum status) {
         Rocket rocket = rockets.get(rocketName);
         rocket.setStatus(status);
+        //todo pending status
     }
 
 

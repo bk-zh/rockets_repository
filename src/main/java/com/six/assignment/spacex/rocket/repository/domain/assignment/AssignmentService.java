@@ -6,6 +6,7 @@ import com.six.assignment.spacex.rocket.repository.domain.mission.state.EndedSta
 import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
 import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnum;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -26,21 +27,25 @@ public class AssignmentService {
             throw new IllegalArgumentException("Assignment failure, cannot find mission: " + missionName);
         }
 
-        if (!mission.getRockets()
-                .stream()
-                .filter(r -> r.getName().equals(rocketName))
-                .findFirst().isEmpty())
+        if (isRocketAssigned(rocketName)) {
             throw new IllegalStateException("Rocket has already been assigned to a mission");
+        }
 
         if (mission.getMissionStatus() instanceof EndedState)
             throw new IllegalStateException("Cannot assign to mission with status ended");
 
         mission.assignRocket(rocket);
+        rocket.setStatus(StatusRocketEnum.IN_SPACE);
     }
 
     public void assignRocketsToMission(List<Rocket> rockets, Mission mission) {
         throw new RuntimeException("not implemented yet");
     }
 
-
+    private boolean isRocketAssigned(String rocketName) {
+        return missionService.getMissions().values().stream()
+                .anyMatch(mission -> mission.getRockets()
+                        .stream()
+                        .anyMatch(r -> r.getName().equals(rocketName)));
+    }
 }

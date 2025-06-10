@@ -1,11 +1,11 @@
 package com.six.assignment.spacex.rocket.repository.domain.assignment;
 
-import com.six.assignment.spacex.rocket.repository.domain.assignment.AssignmentService;
 import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
-import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
 import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
 import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,11 +26,6 @@ class AssignmentServiceTest {
     }
 
     @Test
-    void assignRocketsToMission() {
-        //todo
-    }
-
-    @Test
     void assignRocketToMission() {
         // given
         String rocketName = "rocket1";
@@ -48,6 +43,7 @@ class AssignmentServiceTest {
                 .filter(rocket -> rocket.getName().equals(rocketName))
                 .findFirst();
         assertNotNull(rocketOptional.get());
+        assertTrue(mission.getRockets().get(0).getStatus().equals(StatusRocketEnum.IN_SPACE));
 
     }
 
@@ -70,16 +66,23 @@ class AssignmentServiceTest {
 
     @Test
     void shouldThrowWhenRocketAlreadyAssigned() {
-        String rocketName = "rocket1";
+        String rocketName1 = "rocket1";
+        String rocketName2 = "rocket2";
         String missionName1 = "mission1";
-        rocketService.addNewRocket(rocketName);
+        String missionName2 = "mission2";
+        rocketService.addNewRocket(rocketName1);
+        rocketService.addNewRocket(rocketName2);
         missionService.addNewMission(missionName1);
+        missionService.addNewMission(missionName2);
 
-        assignmentService.assignRocketToMission(rocketName, missionName1);
+        assignmentService.assignRocketToMission(rocketName1, missionName1);
+        assignmentService.assignRocketToMission(rocketName2, missionName2);
 
         IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
-                assignmentService.assignRocketToMission(rocketName, missionName1));
+                assignmentService.assignRocketToMission(rocketName2, missionName1));
 
         assertEquals("Rocket has already been assigned to a mission", ex.getMessage());
     }
+
+
 }
