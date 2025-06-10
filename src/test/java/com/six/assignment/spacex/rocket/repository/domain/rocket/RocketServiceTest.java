@@ -1,5 +1,6 @@
 package com.six.assignment.spacex.rocket.repository.domain.rocket;
 
+import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RocketServiceTest {
     private RocketService rocketService;
+    private MissionService missionService;
 
     @BeforeEach
     void setUp() {
-        rocketService = new RocketService();
+        missionService = new MissionService();
+        rocketService = new RocketService(missionService);
     }
 
     @Test

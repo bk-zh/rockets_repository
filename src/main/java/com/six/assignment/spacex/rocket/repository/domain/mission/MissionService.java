@@ -25,6 +25,11 @@ public class MissionService {
     public Mission getMission(String name) {
         return missions.get(name);
     }
-
+    public Mission getMissionByRocketName(String rocketName) {
+        return missions.values().stream()
+                .filter(mission -> mission.getRockets().stream()
+                        .anyMatch(rocket -> rocket.getName().equals(rocketName)))
+                .findFirst().orElse(null);
+    }
 
 }

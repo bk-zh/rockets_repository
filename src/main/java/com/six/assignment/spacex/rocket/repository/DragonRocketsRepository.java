@@ -8,8 +8,8 @@ import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 import java.util.List;
 
 public class DragonRocketsRepository {
-    private final RocketService rocketService = new RocketService();
     private final MissionService missionService = new MissionService();
+    private final RocketService rocketService = new RocketService(missionService);
     private final AssignmentService assignmentService =
             new AssignmentService(rocketService, missionService);
 

@@ -21,7 +21,7 @@ class AssignmentServiceTest {
     @BeforeEach
     void setUp() {
         missionService = new MissionService();
-        rocketService = new RocketService();
+        rocketService = new RocketService(missionService);
         assignmentService=new AssignmentService(rocketService,missionService);
     }
 
