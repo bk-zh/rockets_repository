@@ -58,6 +58,17 @@ class PendingStateTest {
     void shouldFailTransitionFromInvalidStatus() {
         Mission mission = mock(Mission.class);
 
+        when(mission.getMissionStatus()).thenReturn(new EndedState());
+
+        PendingState pendingState = new PendingState();
+
+        assertThrows(IllegalStateException.class, () -> pendingState.update(mission));
+    }
+
+    @Test
+    void shouldSuccessTransitionFromInProgressStatus() {
+        Mission mission = mock(Mission.class);
+
         when(mission.getMissionStatus()).thenReturn(new InProgressState());
 
         PendingState pendingState = new PendingState();

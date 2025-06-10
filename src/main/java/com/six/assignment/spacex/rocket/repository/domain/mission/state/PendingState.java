@@ -8,7 +8,9 @@ import java.util.List;
 
 public class PendingState implements MissionState {
     List<StatusMissionEnum> allowedTransitionsFrom = List.of(
-            StatusMissionEnum.SCHEDULED
+            StatusMissionEnum.SCHEDULED,
+            StatusMissionEnum.IN_PROGRESS
+
     );
 
     @Override
