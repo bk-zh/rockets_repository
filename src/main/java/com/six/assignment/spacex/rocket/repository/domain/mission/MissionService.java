@@ -2,6 +2,7 @@ package com.six.assignment.spacex.rocket.repository.domain.mission;
 
 import com.six.assignment.spacex.rocket.repository.domain.mission.state.MissionState;
 import com.six.assignment.spacex.rocket.repository.domain.mission.state.MissionStateFactory;
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.ScheduledState;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -13,7 +14,10 @@ public class MissionService {
 
     public void addNewMission(String missionName) {
         if (missions.containsKey(missionName)) throw new IllegalArgumentException("Mission already exists");
-        missions.put(missionName, new Mission(missionName));
+        Mission mission= new Mission(missionName);
+        ScheduledState scheduledState = new ScheduledState();
+        scheduledState.update(mission);
+        missions.put(missionName, mission);
     }
 
     public void changeMissionStatus(String missionName, StatusMissionEnum status) {

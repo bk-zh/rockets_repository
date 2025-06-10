@@ -16,10 +16,8 @@ class ScheduledStateTest {
     @Test
     void shouldSetMissionStatusWhenCurrentStatusIsNull() {
         Mission mission = mock(Mission.class);
-        MissionState missionState = mock(MissionState.class);
 
-        when(mission.getMissionStatus()).thenReturn(missionState);
-        when(missionState.getStatus()).thenReturn(null);
+        when(mission.getMissionStatus()).thenReturn(null);
         when(mission.getRockets()).thenReturn(Collections.emptyList());
         ScheduledState scheduledState = new ScheduledState();
 
@@ -48,11 +46,9 @@ class ScheduledStateTest {
     @Test
     void shouldFailWhenCurrentStatusIsNullButHasRockets() {
         Mission mission = mock(Mission.class);
-        MissionState missionStatus = mock(MissionState.class);
         Rocket rocket = mock(Rocket.class);
 
-        when(mission.getMissionStatus()).thenReturn(missionStatus);
-        when(missionStatus.getStatus()).thenReturn(null);
+        when(mission.getMissionStatus()).thenReturn(null);
         when(mission.getRockets()).thenReturn(List.of(rocket));
 
         ScheduledState scheduledState = new ScheduledState();

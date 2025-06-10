@@ -7,7 +7,7 @@ public class ScheduledState implements MissionState {
 
     @Override
     public void update(Mission mission) {
-        if (null == mission.getMissionStatus().getStatus()) {
+        if (null == mission.getMissionStatus()) {
             if (mission.getRockets().size()>0){
                 throw new IllegalStateException("Mission status change not allowed to Scheduled if contains rockets" );
             }

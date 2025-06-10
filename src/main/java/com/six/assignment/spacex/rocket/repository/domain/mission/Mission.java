@@ -15,7 +15,7 @@ import java.util.List;
 public class Mission {
     private final String name;
     @Setter
-    private MissionState missionStatus = new ScheduledState();
+    private MissionState missionStatus;
     private final List<Rocket> rockets = new ArrayList<>();
 
     public void assignRocket(Rocket rocket) {
