@@ -22,9 +22,9 @@ public class PendingState implements MissionState {
 
     @Override
     public boolean canTransitionFrom(StatusMissionEnum target) {
-        if (!allowedTransitionsFrom.contains(target)) {
-            throw new IllegalStateException("Mission status change not allowed from:" + target);
+        if (allowedTransitionsFrom.contains(target)) {
+            return true;
         }
-        return true;
+        throw new IllegalStateException("Mission status change not allowed from: " + target);
     }
 }
