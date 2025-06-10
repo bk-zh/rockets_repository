@@ -13,7 +13,7 @@ public class DragonRocketsRepository {
         rockets.put(name, new Rocket(name, StatusRocketEnum.ON_GROUND));
     }
 
-    public void assignRocketToMission(Rocket rocket, Mission mission) {
+    public void assignRocketToMission(String rocketName, String missionName) {
         throw new RuntimeException("not implemented yet");
     }
 
@@ -22,7 +22,7 @@ public class DragonRocketsRepository {
     }
 
     public void addNewMission(String missionName) {
-        throw new RuntimeException("not implemented yet");
+        missions.put(missionName, new Mission(missionName));
     }
 
     public void assignRocketsToMission(List<Rocket> rockets, Mission mission) {

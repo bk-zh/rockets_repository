@@ -30,12 +30,49 @@ class DragonRocketsRepositoryTest {
 
     }
 
+    @Test
+    void addNewMissionTest() {
+        // given
+        String missionName = "mission1";
+        // when
+        repository.addNewMission(missionName);
+        // then
+        Mission mission = getMissionFromRepo(repository, missionName);
+        assertNotNull(mission);
+        assertEquals(StatusMissionEnum.SCHEDULED, mission.getStatus());
+
+    }
+
+
+    @Test
+    void assignRocketToMissionTest() {
+        // given
+        String rocketName = "rocket1";
+        String MissionName = "mission1";
+//        repository.addNewRocket();
+
+    }
+
+
+
     //supporting method for private accessors  rockets/missions in  DragonRocketsRepository
     private Rocket getRocketFromRepo(DragonRocketsRepository repo, String name) {
         try {
             var field = DragonRocketsRepository.class.getDeclaredField("rockets");
             field.setAccessible(true);
             var map = (Map<String, Rocket>) field.get(repo);
+            return map.get(name);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //supporting method for private accessors  rockets/missions in  DragonRocketsRepository
+    private Mission getMissionFromRepo(DragonRocketsRepository repo, String name) {
+        try {
+            var field = DragonRocketsRepository.class.getDeclaredField("missions");
+            field.setAccessible(true);
+            var map = (Map<String, Mission>) field.get(repo);
             return map.get(name);
         } catch (Exception e) {
             throw new RuntimeException(e);
