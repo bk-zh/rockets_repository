@@ -1,8 +1,5 @@
 package com.six.assignment.spacex.rocket.repository.domain.mission;
 
-import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
-import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
-import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +23,7 @@ class MissionServiceTest {
         // then
         Mission mission = missionService.getMission(missionName);
         assertNotNull(mission);
-        assertEquals(StatusMissionEnum.SCHEDULED, mission.getStatus());
+        assertEquals(StatusMissionEnum.SCHEDULED, mission.getMissionStatus().getStatus());
 
     }
 
@@ -36,9 +33,9 @@ class MissionServiceTest {
         missionService.addNewMission(missionName);
 
         Mission mission = missionService.getMission(missionName);
-        assertEquals(mission.getStatus(), StatusMissionEnum.SCHEDULED);
+        assertEquals(mission.getMissionStatus().getStatus(), StatusMissionEnum.SCHEDULED);
         missionService.changeMissionStatus(mission.getName(), StatusMissionEnum.IN_PROGRESS);
-        assertEquals(mission.getStatus(), StatusMissionEnum.IN_PROGRESS);
+        assertEquals(mission.getMissionStatus().getStatus(), StatusMissionEnum.IN_PROGRESS);
 
     }
 

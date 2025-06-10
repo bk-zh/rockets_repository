@@ -1,5 +1,7 @@
 package com.six.assignment.spacex.rocket.repository.domain.mission;
 
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.MissionState;
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.ScheduledState;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,7 @@ import java.util.List;
 public class  Mission {
     private final String name;
     @Setter
-    private StatusMissionEnum status = StatusMissionEnum.SCHEDULED;
+    private MissionState missionStatus = new ScheduledState();
     private final List<Rocket> rockets = new ArrayList<>();
 
     public void assignRocket(Rocket rocket) {

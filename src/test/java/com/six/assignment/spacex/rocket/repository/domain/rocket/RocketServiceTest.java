@@ -1,8 +1,5 @@
 package com.six.assignment.spacex.rocket.repository.domain.rocket;
 
-import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
-import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
-import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

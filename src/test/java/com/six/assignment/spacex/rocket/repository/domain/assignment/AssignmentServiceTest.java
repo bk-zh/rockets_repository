@@ -48,7 +48,6 @@ class AssignmentServiceTest {
     void shouldThrowWhenAssigningToEndedMission() {
         String rocketName = "rocket1";
         String missionName1 = "mission1";
-        String missionName2 = "mission2";
         rocketService.addNewRocket(rocketName);
         missionService.addNewMission(missionName1);
         Mission oldMission = missionService.getMission(missionName1);

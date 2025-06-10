@@ -1,5 +1,7 @@
 package com.six.assignment.spacex.rocket.repository.domain.mission;
 
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.MissionState;
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.MissionStateFactory;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -15,8 +17,11 @@ public class MissionService {
     }
 
     public void changeMissionStatus(String missionName, StatusMissionEnum status) {
-        Mission mission = missions.get(missionName);
-        mission.setStatus(status);
+        Mission mission = getMission(missionName);
+        MissionState state = MissionStateFactory.create(status);
+//        state.update(mission);
+        mission.setMissionStatus(state);
+
     }
 
     public Mission getMission(String name) {

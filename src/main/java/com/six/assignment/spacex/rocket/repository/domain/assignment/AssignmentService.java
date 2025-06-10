@@ -2,9 +2,9 @@ package com.six.assignment.spacex.rocket.repository.domain.assignment;
 
 
 import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
+import com.six.assignment.spacex.rocket.repository.domain.mission.state.EndedState;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.Rocket;
 import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
-import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ public class AssignmentService {
         Mission mission = missionService.getMission(missionName);
         if (rocket.getMission() != null)
             throw new IllegalStateException("Rocket has already been assigned to a mission");
-        if (mission.getStatus().equals(StatusMissionEnum.ENDED))
+        if (mission.getMissionStatus() instanceof EndedState)
             throw new IllegalStateException("Cannot assign to mission with status ended");
 
         rocket.setMission(mission);
