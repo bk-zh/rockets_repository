@@ -10,4 +10,10 @@ import lombok.Setter;
 public class Rocket {
     private final String name;
     private StatusRocketEnum status=StatusRocketEnum.ON_GROUND;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("     " +name + " - " + status.getPrintedValue());
+        return sb.toString();
+    }
 }

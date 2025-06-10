@@ -5,6 +5,7 @@ import com.six.assignment.spacex.rocket.repository.domain.assignment.AssignmentS
 import com.six.assignment.spacex.rocket.repository.domain.mission.MissionService;
 import com.six.assignment.spacex.rocket.repository.domain.rocket.RocketService;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class DragonRocketsRepository {
@@ -14,7 +15,10 @@ public class DragonRocketsRepository {
             new AssignmentService(rocketService, missionService);
 
     public List<Mission> getMissionsSummary() {
-        throw new RuntimeException("not implemented yet");
+        return missionService.getMissions().values().stream()
+                .sorted(Comparator.comparingInt((Mission m) -> m.getRockets().size()).reversed()
+                        .thenComparing(Mission::getName, Comparator.reverseOrder()))
+                .toList();
     }
 
 

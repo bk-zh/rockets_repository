@@ -25,5 +25,10 @@ public class Mission {
     public void clearRockets() {
         rockets.clear();
     }
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(name + " - " + missionStatus.getStatus().getPrintedValue() + " - Dragons: " + rockets.size());
+        for (Rocket r : rockets) sb.append("\n  ").append(r);
+        return sb.toString();
+    }
 }
