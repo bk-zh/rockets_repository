@@ -97,18 +97,48 @@ class DragonRocketsRepositoryTest {
         assertEquals("Rocket has already been assigned to a mission", ex.getMessage());
     }
 
-//    @Test
-//    void shouldThrowWhenAssigningToEndedMission() {
-//        String rocketName = "rocket1";
-//        String missionName1 = "mission1";
-//        String missionName2 = "mission2";
-//        repository.addNewRocket(rocketName);
-//        repository.addNewMission(missionName1);
-//        Mission oldMission = getMissionFromRepo(repository,missionName1);
-//        repository.changeMissionStatus(oldMission, StatusMissionEnum.ENDED);
-//
-//
-//    }
+    @Test
+    void changeRocketStatusTest() {
+        String rocketName = "rocket1";
+        repository.addNewRocket(rocketName);
+
+        Rocket rocket = getRocketFromRepo(repository,rocketName);
+        assertEquals(rocket.getStatus(), StatusRocketEnum.ON_GROUND);
+        repository.changeRocketStatus(rocketName,StatusRocketEnum.IN_SPACE);
+        assertEquals(rocket.getStatus(), StatusRocketEnum.IN_SPACE);
+
+    }
+
+    @Test
+    void changeMissionStatusTest() {
+        String missionName = "rocket1";
+        repository.addNewMission(missionName);
+
+        Mission mission = getMissionFromRepo(repository,missionName);
+        assertEquals(mission.getStatus(), StatusMissionEnum.SCHEDULED);
+        repository.changeMissionStatus(mission.getName(),StatusMissionEnum.IN_PROGRESS);
+        assertEquals(mission.getStatus(), StatusMissionEnum.IN_PROGRESS);
+
+    }
+
+
+    @Test
+    void shouldThrowWhenAssigningToEndedMission() {
+        String rocketName = "rocket1";
+        String missionName1 = "mission1";
+        String missionName2 = "mission2";
+        repository.addNewRocket(rocketName);
+        repository.addNewMission(missionName1);
+        Mission oldMission = getMissionFromRepo(repository,missionName1);
+        repository.changeMissionStatus(oldMission.getName(), StatusMissionEnum.ENDED);
+
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
+                repository.assignRocketToMission(rocketName, oldMission.getName()));
+
+        assertEquals("Cannot assign to mission with status ended", ex.getMessage());
+
+
+    }
 
     //supporting method for private accessors  rockets/missions in  DragonRocketsRepository
     private Rocket getRocketFromRepo(DragonRocketsRepository repo, String name) {

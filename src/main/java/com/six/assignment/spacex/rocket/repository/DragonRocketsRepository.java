@@ -11,7 +11,7 @@ public class DragonRocketsRepository {
 
     public void addNewRocket(String name) {
         if (rockets.containsKey(name)) throw new IllegalArgumentException("Rocket already exists");
-        rockets.put(name, new Rocket(name, StatusRocketEnum.ON_GROUND));
+        rockets.put(name, new Rocket(name));
     }
 
     public void assignRocketToMission(String rocketName, String missionName) {
@@ -26,7 +26,8 @@ public class DragonRocketsRepository {
     }
 
     public void changeRocketStatus(String rocketName, StatusRocketEnum status) {
-        throw new RuntimeException("not implemented yet");
+        Rocket rocket = rockets.get(rocketName);
+        rocket.setStatus(status);
     }
 
     public void addNewMission(String missionName) {
@@ -38,8 +39,9 @@ public class DragonRocketsRepository {
         throw new RuntimeException("not implemented yet");
     }
 
-    public void changeMissionStatus(Mission mission, StatusMissionEnum status) {
-        throw new RuntimeException("not implemented yet");
+    public void changeMissionStatus(String missionName, StatusMissionEnum status) {
+        Mission mission = missions.get(missionName);
+        mission.setStatus(status);
     }
 
     public List<Mission> getMissionsSummary() {
