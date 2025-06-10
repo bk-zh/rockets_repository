@@ -10,7 +10,7 @@ public class DragonRocketsRepository {
     private final Map<String, Mission> missions = new HashMap<>();
 
     public void addNewRocket(String name) {
-        throw new RuntimeException("not implemented yet");
+        rockets.put(name, new Rocket(name, StatusRocketEnum.ON_GROUND));
     }
 
     public void assignRocketToMission(Rocket rocket, Mission mission) {

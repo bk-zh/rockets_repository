@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 class Rocket {
     private final String name;
-    private StatusRocketEnum status;
+    private final StatusRocketEnum status;
     private Mission mission;
 }
