@@ -75,11 +75,44 @@ class DragonRocketsRepositoryTest {
         List<Mission> summary = dragonRocketsRepository.getMissionsSummary();
 
         assertEquals(6, summary.size());
-        assertEquals("Transit", summary.get(0).getName()); // 3 rockets
-        assertEquals("Luna1", summary.get(1).getName());   // 2 rockets
-        assertEquals("Vertical Landing", summary.get(2).getName()); // 0 rockets, desc. alphabetical
+
+        Mission transit = summary.get(0);
+        assertEquals("Transit", transit.getName());
+        assertEquals(StatusMissionEnum.IN_PROGRESS, transit.getMissionStatus().getStatus());
+        assertEquals(3, transit.getRockets().size());
+        assertEquals(StatusRocketEnum.IN_SPACE, getRocket(transit, "Red Dragon")); //<- error in provided solution answer
+        assertEquals(StatusRocketEnum.IN_SPACE, getRocket(transit, "Dragon XL"));
+        assertEquals(StatusRocketEnum.IN_SPACE, getRocket(transit, "Falcon Heavy"));
+
+        Mission luna1 = summary.get(1);
+        assertEquals("Luna1", luna1.getName());
+        assertEquals(StatusMissionEnum.PENDING, luna1.getMissionStatus().getStatus());
+        assertEquals(2, luna1.getRockets().size());
+        assertEquals(StatusRocketEnum.IN_SPACE, getRocket(luna1, "Dragon 1"));
+        assertEquals(StatusRocketEnum.IN_REPAIR, getRocket(luna1, "Dragon 2"));
+
+        assertEquals("Vertical Landing", summary.get(2).getName());
+        assertEquals(StatusMissionEnum.ENDED, summary.get(2).getMissionStatus().getStatus());
+        assertEquals(0, summary.get(2).getRockets().size());
+
         assertEquals("Mars", summary.get(3).getName());
+        assertEquals(StatusMissionEnum.SCHEDULED, summary.get(3).getMissionStatus().getStatus());
+        assertEquals(0, summary.get(3).getRockets().size());
+
         assertEquals("Luna2", summary.get(4).getName());
+        assertEquals(StatusMissionEnum.SCHEDULED, summary.get(4).getMissionStatus().getStatus());
+        assertEquals(0, summary.get(4).getRockets().size());
+
         assertEquals("Double Landing", summary.get(5).getName());
+        assertEquals(StatusMissionEnum.ENDED, summary.get(5).getMissionStatus().getStatus());
+        assertEquals(0, summary.get(5).getRockets().size());
     }
+
+    private StatusRocketEnum getRocket(Mission mission, String rocketName) {
+        return mission.getRockets().stream()
+                .filter(r -> r.getName().equals(rocketName))
+                .findFirst()
+                .orElseThrow().getStatus();
+    }
+
 }
