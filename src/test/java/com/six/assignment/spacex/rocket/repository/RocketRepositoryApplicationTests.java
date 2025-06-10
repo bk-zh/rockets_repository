@@ -1,4 +1,4 @@
-package com.six.assignment.rocket_repository;
+package com.six.assignment.spacex.rocket.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

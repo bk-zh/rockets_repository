@@ -1,4 +1,4 @@
-package com.six.assignment.rocket_repository;
+package com.six.assignment.spacex.rocket.repository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
