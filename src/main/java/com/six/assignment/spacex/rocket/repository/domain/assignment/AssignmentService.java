@@ -38,8 +38,11 @@ public class AssignmentService {
         rocket.setStatus(StatusRocketEnum.IN_SPACE);
     }
 
-    public void assignRocketsToMission(List<Rocket> rockets, Mission mission) {
-        throw new RuntimeException("not implemented yet");
+    public void assignRocketsToMission(List<Rocket> rockets, Mission mission) throws Exception {
+        for (Rocket rocket : rockets) {
+            assignRocketToMission(rocket.getName(), mission.getName());
+        }
+
     }
 
     private boolean isRocketAssigned(String rocketName) {

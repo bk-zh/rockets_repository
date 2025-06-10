@@ -9,9 +9,13 @@ import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnu
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class AssignmentServiceTest {
     private MissionService missionService;
@@ -84,5 +88,51 @@ class AssignmentServiceTest {
         assertEquals("Rocket has already been assigned to a mission", ex.getMessage());
     }
 
+    @Test
+    void shouldAssignRocketsToMissionSuccessfully() throws Exception {
+        RocketService rocketService = mock(RocketService.class);
+        MissionService missionService = mock(MissionService.class);
+
+        Rocket rocket1 = new Rocket("rocket1");
+        Rocket rocket2 = new Rocket("rocket2");
+        Mission mission = new Mission("mission1");
+
+        when(rocketService.getRocket("rocket1")).thenReturn(rocket1);
+        when(rocketService.getRocket("rocket2")).thenReturn(rocket2);
+        when(missionService.getMission("mission1")).thenReturn(mission);
+        when(missionService.getMissions()).thenReturn(Map.of());
+
+        AssignmentService assignmentService = new AssignmentService(rocketService, missionService);
+
+        assignmentService.assignRocketsToMission(List.of(rocket1, rocket2), mission);
+
+        assertEquals(2, mission.getRockets().size());
+        assertTrue(mission.getRockets().containsAll(List.of(rocket1, rocket2)));
+        assertEquals(StatusRocketEnum.IN_SPACE, rocket1.getStatus());
+        assertEquals(StatusRocketEnum.IN_SPACE, rocket2.getStatus());
+    }
+
+    @Test
+    void shouldFailAssigningAlreadyAssignedRocket() {
+        RocketService rocketService = mock(RocketService.class);
+        MissionService missionService = mock(MissionService.class);
+
+        Rocket rocket = new Rocket("rocket1");
+        Mission existingMission = new Mission("mission2");
+        existingMission.assignRocket(rocket);
+
+        Mission newMission = new Mission("mission1");
+
+        when(rocketService.getRocket("rocket1")).thenReturn(rocket);
+        when(missionService.getMission("mission1")).thenReturn(newMission);
+        when(missionService.getMissions()).thenReturn(Map.of(existingMission.getName(), existingMission));
+
+        AssignmentService assignmentService = new AssignmentService(rocketService, missionService);
+
+        Exception exception = assertThrows(Exception.class, () ->
+                assignmentService.assignRocketsToMission(List.of(rocket), newMission));
+
+        assertTrue(exception.getMessage().contains("Rocket has already been assigned to a mission"));
+    }
 
 }
