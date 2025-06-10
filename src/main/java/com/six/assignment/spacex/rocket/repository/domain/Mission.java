@@ -1,4 +1,5 @@
-package com.six.assignment.spacex.rocket.repository;
+package com.six.assignment.spacex.rocket.repository.domain;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-class Mission {
+public class  Mission {
     private final String name;
     @Setter
     private StatusMissionEnum status = StatusMissionEnum.SCHEDULED;
