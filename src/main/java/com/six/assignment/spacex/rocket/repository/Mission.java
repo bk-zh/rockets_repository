@@ -11,8 +11,10 @@ import java.util.List;
 class Mission {
     private final String name;
     @Setter
-    private StatusMissionEnum status=StatusMissionEnum.SCHEDULED;
+    private StatusMissionEnum status = StatusMissionEnum.SCHEDULED;
     private final List<Rocket> rockets = new ArrayList<>();
 
-
+    public void assignRocket(Rocket rocket) {
+        rockets.add(rocket);
+    }
 }

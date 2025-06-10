@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DragonRocketsRepositoryTest {
 
@@ -44,7 +43,25 @@ class DragonRocketsRepositoryTest {
     }
     @Test
     void forbidOverrideMissionAndRocket() {
-        //todo
+        // given
+        String rocket1 = "rocket1";
+        String mission2 = "mission2";
+
+        repository.addNewRocket(rocket1);
+        repository.addNewMission(mission2);
+
+        // when & then
+        IllegalArgumentException rocketDuplicationException = assertThrows(IllegalArgumentException.class, () -> {
+            repository.addNewRocket("rocket1");
+        });
+        assertEquals("Rocket already exists", rocketDuplicationException.getMessage());
+
+        // when & then
+        IllegalArgumentException missionDuplicationException = assertThrows(IllegalArgumentException.class, () -> {
+            repository.addNewMission("mission2");
+        });
+        assertEquals("Mission already exists", missionDuplicationException.getMessage());
+
     }
 
 
@@ -55,6 +72,7 @@ class DragonRocketsRepositoryTest {
         String missionName = "mission1";
         repository.addNewRocket(rocketName);
         repository.addNewMission(missionName);
+        //when
         repository.assignRocketToMission(rocketName,missionName);
         Rocket rocket = getRocketFromRepo(repository, rocketName);
         assertNotNull(rocket);
@@ -62,8 +80,35 @@ class DragonRocketsRepositoryTest {
         assertEquals(rocket.getMission().getName(), missionName);
 
     }
+    @Test
+    void shouldThrowWhenRocketAlreadyAssigned() {
+        String rocketName = "rocket1";
+        String missionName1 = "mission1";
+        String missionName2 = "mission2";
+        repository.addNewRocket(rocketName);
+        repository.addNewMission(missionName1);
+        repository.addNewMission(missionName2);
 
+        repository.assignRocketToMission(rocketName, missionName1);
 
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
+                repository.assignRocketToMission(rocketName, missionName2));
+
+        assertEquals("Rocket has already been assigned to a mission", ex.getMessage());
+    }
+
+//    @Test
+//    void shouldThrowWhenAssigningToEndedMission() {
+//        String rocketName = "rocket1";
+//        String missionName1 = "mission1";
+//        String missionName2 = "mission2";
+//        repository.addNewRocket(rocketName);
+//        repository.addNewMission(missionName1);
+//        Mission oldMission = getMissionFromRepo(repository,missionName1);
+//        repository.changeMissionStatus(oldMission, StatusMissionEnum.ENDED);
+//
+//
+//    }
 
     //supporting method for private accessors  rockets/missions in  DragonRocketsRepository
     private Rocket getRocketFromRepo(DragonRocketsRepository repo, String name) {
