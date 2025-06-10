@@ -15,10 +15,6 @@ public class AssignmentService {
     private final RocketService rocketService;
     private final MissionService missionService;
 
-    public void assignRocketsToMission(List<Rocket> rockets, Mission mission) {
-        throw new RuntimeException("not implemented yet");
-    }
-
     public void assignRocketToMission(String rocketName, String missionName) {
         Rocket rocket = rocketService.getRocket(rocketName);
         Mission mission = missionService.getMission(missionName);
@@ -30,4 +26,10 @@ public class AssignmentService {
         rocket.setMission(mission);
         mission.assignRocket(rocket);
     }
+
+    public void assignRocketsToMission(List<Rocket> rockets, Mission mission) {
+        throw new RuntimeException("not implemented yet");
+    }
+
+
 }

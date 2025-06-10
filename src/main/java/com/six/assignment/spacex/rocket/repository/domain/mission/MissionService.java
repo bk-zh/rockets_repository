@@ -1,7 +1,5 @@
 package com.six.assignment.spacex.rocket.repository.domain.mission;
 
-import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
-import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
 import lombok.Getter;
 
 import java.util.HashMap;
