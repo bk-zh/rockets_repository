@@ -42,14 +42,24 @@ class DragonRocketsRepositoryTest {
         assertEquals(StatusMissionEnum.SCHEDULED, mission.getStatus());
 
     }
+    @Test
+    void forbidOverrideMissionAndRocket() {
+        //todo
+    }
 
 
     @Test
     void assignRocketToMissionTest() {
         // given
         String rocketName = "rocket1";
-        String MissionName = "mission1";
-//        repository.addNewRocket();
+        String missionName = "mission1";
+        repository.addNewRocket(rocketName);
+        repository.addNewMission(missionName);
+        repository.assignRocketToMission(rocketName,missionName);
+        Rocket rocket = getRocketFromRepo(repository, rocketName);
+        assertNotNull(rocket);
+        assertNotNull(rocket.getMission());
+        assertEquals(rocket.getMission().getName(), missionName);
 
     }
 

@@ -10,6 +10,7 @@ public class DragonRocketsRepository {
     private final Map<String, Mission> missions = new HashMap<>();
 
     public void addNewRocket(String name) {
+        if (rockets.containsKey(name)) throw new IllegalArgumentException("Rocket already exists");
         rockets.put(name, new Rocket(name, StatusRocketEnum.ON_GROUND));
     }
 
@@ -22,6 +23,7 @@ public class DragonRocketsRepository {
     }
 
     public void addNewMission(String missionName) {
+        if (rockets.containsKey(missionName)) throw new IllegalArgumentException("Rocket already exists");
         missions.put(missionName, new Mission(missionName));
     }
 
