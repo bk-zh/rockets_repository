@@ -2,6 +2,7 @@ package com.six.assignment.spacex.rocket.repository.domain.mission.state;
 
 import com.six.assignment.spacex.rocket.repository.domain.mission.Mission;
 import com.six.assignment.spacex.rocket.repository.domain.mission.StatusMissionEnum;
+import com.six.assignment.spacex.rocket.repository.domain.rocket.StatusRocketEnum;
 
 import java.util.List;
 
@@ -12,7 +13,17 @@ public class InProgressState implements MissionState {
     );
     @Override
     public void update(Mission mission) {
-        throw new RuntimeException("Not implemented yet");
+        canTransitionFrom(mission.getMissionStatus().getStatus());
+
+        boolean anyInRepair = mission.getRockets().stream()
+                .anyMatch(rocket -> rocket.getStatus() == StatusRocketEnum.IN_REPAIR);
+
+        if (anyInRepair || mission.getRockets().isEmpty()) {
+            throw new IllegalStateException("Mission cannot transition to IN_PROGRESS if any rocket is in repair or no rockets assigned");
+        }
+
+        mission.getRockets().forEach(rocket -> rocket.setStatus(StatusRocketEnum.IN_SPACE));
+        mission.setMissionStatus(this);
     }
 
     @Override
