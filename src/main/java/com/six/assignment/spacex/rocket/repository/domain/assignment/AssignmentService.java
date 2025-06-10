@@ -12,10 +12,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class AssignmentService {
+public class AssignmentService implements AssignmentOperations {
     private final RocketService rocketService;
     private final MissionService missionService;
 
+    @Override
     public void assignRocketToMission(String rocketName, String missionName) {
         Rocket rocket = rocketService.getRocket(rocketName);
         if (null == rocket) {
@@ -37,7 +38,7 @@ public class AssignmentService {
         mission.assignRocket(rocket);
         rocket.setStatus(StatusRocketEnum.IN_SPACE);
     }
-
+    @Override
     public void assignRocketsToMission(List<Rocket> rockets, Mission mission) throws Exception {
         for (Rocket rocket : rockets) {
             assignRocketToMission(rocket.getName(), mission.getName());

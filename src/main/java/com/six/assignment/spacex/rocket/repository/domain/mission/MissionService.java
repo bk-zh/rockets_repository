@@ -9,17 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class MissionService {
+public class MissionService implements MissionOperations {
     private final Map<String, Mission> missions = new HashMap<>();
 
+    @Override
     public void addNewMission(String missionName) {
         if (missions.containsKey(missionName)) throw new IllegalArgumentException("Mission already exists");
-        Mission mission= new Mission(missionName);
+        Mission mission = new Mission(missionName);
         ScheduledState scheduledState = new ScheduledState();
         scheduledState.update(mission);
         missions.put(missionName, mission);
     }
 
+    @Override
     public void changeMissionStatus(String missionName, StatusMissionEnum status) {
         Mission mission = getMission(missionName);
         MissionState state = MissionStateFactory.create(status);
@@ -29,6 +31,7 @@ public class MissionService {
     public Mission getMission(String name) {
         return missions.get(name);
     }
+
     public Mission getMissionByRocketName(String rocketName) {
         return missions.values().stream()
                 .filter(mission -> mission.getRockets().stream()

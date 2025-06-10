@@ -9,22 +9,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class RocketService {
+public class RocketService implements RocketOperations {
 
     private final MissionService missionService;
 
     private final Map<String, Rocket> rockets = new HashMap<>();
 
+    @Override
     public void addNewRocket(String name) {
         if (rockets.containsKey(name)) throw new IllegalArgumentException("Rocket already exists");
         rockets.put(name, new Rocket(name));
     }
 
+    @Override
     public void changeRocketStatus(String rocketName, StatusRocketEnum status) {
         Rocket rocket = rockets.get(rocketName);
-        if (StatusRocketEnum.IN_REPAIR.equals(status)){
+        if (StatusRocketEnum.IN_REPAIR.equals(status)) {
             Mission mission = missionService.getMissionByRocketName(rocketName);
-            if (null!=mission){
+            if (null != mission) {
                 rocket.setStatus(status);
                 missionService.changeMissionStatus(mission.getName(), StatusMissionEnum.PENDING);
                 return;
@@ -34,7 +36,7 @@ public class RocketService {
     }
 
 
-    public Rocket getRocket(String name){
+    public Rocket getRocket(String name) {
         return rockets.get(name);
     }
 
